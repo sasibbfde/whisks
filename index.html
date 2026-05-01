@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Wisk Converter · Chiang Mai</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Thai:wght@300;400;500&display=swap');
+
+:root {
+  --saffron: #C8860A;
+  --saffron-lt: #F5C84A;
+  --saffron-pale: #FDF3DC;
+  --temple: #8B3A2F;
+  --temple-lt: #D4735E;
+  --jade: #3D6B54;
+  --jade-lt: #73B096;
+  --jade-pale: #EAF4EE;
+  --night: #1A1410;
+  --dusk: #2E2418;
+  --bark: #4A3728;
+  --sand: #C2A97B;
+  --sand-lt: #E8D9BC;
+  --parchment: #FBF6EE;
+  --smoke: #7A6855;
+  --mist: #B0A090;
+  --border: rgba(74,55,40,0.18);
+  --row-a: rgba(251,246,238,0.5);
+  --row-b: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  background: var(--parchment);
+  color: var(--dusk);
+  min-height: 100vh;
+}
+
+/* ── HERO HEADER ── */
+.hero {
+  background: var(--night);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.hero-pattern {
+  position: absolute; inset: 0;
+  opacity: 0.07;
+  background-image:
+    repeating-linear-gradient(60deg, var(--saffron-lt) 0, var(--saffron-lt) 1px, transparent 0, transparent 50%),
+    repeating-linear-gradient(-60deg, var(--saffron-lt) 0, var(--saffron-lt) 1px, transparent 0, transparent 50%);
+  background-size: 40px 70px;
+}
+
+.hero-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 2.8rem 3.5rem;
+}
+
+.lotus-mark {
+  flex-shrink: 0;
+  width: 64px; height: 64px;
+}
+
+.hero-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--saffron-lt);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.hero-text h1 em {
+  font-style: italic;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.hero-text .tagline {
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--sand);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.hero-badge {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.hero-badge .thai-text {
+  font-size: 1.5rem;
+  color: var(--saffron-lt);
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+}
+
+.hero-badge .eng-text {
+  font-size: 0.65rem;
+  color: var(--mist);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* temple border accent */
+.temple-border {
+  height: 5px;
+  background: linear-gradient(90deg, var(--temple) 0%, var(--saffron) 40%, var(--saffron-lt) 60%, var(--temple) 100%);
+}
+
+/* ── MAIN ── */
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2.5rem 3.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ── UPLOAD ZONE ── */
+.upload-zone {
+  position: relative;
+  border: 1.5px dashed var(--sand);
+  border-radius: 16px;
+  padding: 3.8rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  background: #fff;
+  transition: border-color 0.25s, background 0.25s;
+  overflow: hidden;
+}
+
+.upload-zone::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(200,134,10,0.06) 0%, transparent 55%),
+    radial-gradient(circle at 85% 50%, rgba(139,58,47,0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.upload-zone input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: var(--saffron);
+  background: var(--saffron-pale);
+}
+
+.upload-icon {
+  margin: 0 auto 1.2rem;
+  width: 52px; height: 52px;
+}
+
+.upload-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--dusk);
+  margin-bottom: 0.45rem;
+}
+
+.upload-hint {
+  font-size: 0.72rem;
+  color: var(--mist);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+/* ── STATUS BAR ── */
+.status-bar {
+  display: none;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1.3rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  border-left: 4px solid;
+  background: #fff;
+}
+.status-bar.show { display: flex; }
+.status-bar.success { border-color: var(--jade); color: var(--jade); background: var(--jade-pale); }
+.status-bar.error   { border-color: var(--temple); color: var(--temple); background: #FDF0EE; }
+.status-bar.info    { border-color: var(--sand); color: var(--smoke); background: var(--saffron-pale); }
+.status-icon { font-size: 1.1rem; }
+
+/* ── STATS GRID ── */
+.stats-grid {
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.stats-grid.show { display: grid; }
+
+.stat-tile {
+  background: var(--night);
+  border-radius: 14px;
+  padding: 1.3rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-tile::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 60px; height: 60px;
+  background: radial-gradient(circle, rgba(200,134,10,0.18) 0%, transparent 70%);
+}
+
+.stat-label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--sand);
+  margin-bottom: 0.6rem;
+  font-weight: 400;
+}
+
+.stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--saffron-lt);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ── RESULTS PANEL ── */
+.results-panel {
+  display: none;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.results-panel.show { display: flex; }
+
+/* ── TOOLBAR ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--bark);
+}
+
+.toolbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 0.9rem;
+  gap: 0.5rem;
+  height: 36px;
+  transition: border-color 0.2s;
+}
+.search-box:focus-within { border-color: var(--saffron); }
+.search-box svg { flex-shrink: 0; opacity: 0.4; }
+.search-box input {
+  border: none; outline: none; background: transparent;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.78rem;
+  color: var(--dusk);
+  width: 180px;
+}
+.search-box input::placeholder { color: var(--mist); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0 1.1rem;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-saffron {
+  background: var(--saffron);
+  color: #fff;
+}
+.btn-saffron:hover { opacity: 0.88; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--smoke);
+  border: 1px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--saffron); color: var(--saffron); }
+
+/* ── TABLE ── */
+.table-frame {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.table-scroll { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+
+thead {
+  background: var(--night);
+}
+
+th {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--sand);
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+th:hover { color: var(--saffron-lt); }
+th.sort-asc::after  { content: ' ▲'; color: var(--saffron-lt); }
+th.sort-desc::after { content: ' ▼'; color: var(--saffron-lt); }
+
+td {
+  padding: 0.72rem 1.2rem;
+  border-bottom: 1px solid rgba(194,169,123,0.15);
+  color: var(--dusk);
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(odd)  td { background: var(--row-a); }
+tr:nth-child(even) td { background: var(--row-b); }
+tr:hover td { background: var(--saffron-pale) !important; }
+
+td.code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--smoke);
+}
+td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--jade);
+  font-weight: 500;
+}
+
+.no-rows {
+  text-align: center;
+  padding: 3.5rem;
+  color: var(--mist);
+  font-size: 0.82rem;
+}
+
+/* ── PAGINATION ── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  padding: 0.9rem 1rem 0.7rem;
+  border-top: 1px solid rgba(194,169,123,0.2);
+  flex-wrap: wrap;
+}
+
+.pg-info {
+  font-size: 0.7rem;
+  color: var(--mist);
+  margin-right: auto;
+}
+
+.page-btn {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.72rem;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--smoke);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.page-btn:hover { border-color: var(--saffron); color: var(--saffron); }
+.page-btn.active { background: var(--saffron); border-color: var(--saffron); color: #fff; }
+.page-btn:disabled { opacity: 0.3; cursor: default; }
+.page-sep { font-size: 0.72rem; color: var(--mist); padding: 0 2px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--night);
+  border-top: 3px solid var(--saffron);
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  color: var(--sand);
+  font-style: italic;
+}
+.footer-file {
+  font-size: 0.65rem;
+  color: var(--smoke);
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 720px) {
+  main, footer { padding-left: 1.2rem; padding-right: 1.2rem; }
+  .hero-inner { padding: 1.8rem 1.2rem; }
+  .hero-text h1 { font-size: 1.6rem; }
+  .hero-badge { display: none; }
+  .stats-grid { grid-template-columns: repeat(2,1fr); }
+  .toolbar-right { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <!-- Lotus SVG mark -->
+    <svg class="lotus-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="32" cy="44" rx="8" ry="5" fill="#C8860A" opacity="0.4"/>
+      <path d="M32 42 C32 42 20 34 20 22 C20 16 26 12 32 14 C38 12 44 16 44 22 C44 34 32 42 32 42Z" fill="#F5C84A" opacity="0.9"/>
+      <path d="M32 42 C32 42 12 36 10 22 C8 14 16 8 24 12 C28 14 30 18 32 22 C30 30 28 38 32 42Z" fill="#C8860A" opacity="0.75"/>
+      <path d="M32 42 C32 42 52 36 54 22 C56 14 48 8 40 12 C36 14 34 18 32 22 C34 30 36 38 32 42Z" fill="#C8860A" opacity="0.75"/>
+      <path d="M32 42 C32 42 6 40 4 28 C2 20 10 14 18 18 C22 20 26 26 28 30 C28 36 30 40 32 42Z" fill="#8B3A2F" opacity="0.55"/>
+      <path d="M32 42 C32 42 58 40 60 28 C62 20 54 14 46 18 C42 20 38 26 36 30 C36 36 34 40 32 42Z" fill="#8B3A2F" opacity="0.55"/>
+      <line x1="32" y1="42" x2="32" y2="56" stroke="#C8860A" stroke-width="2" stroke-linecap="round"/>
+      <line x1="32" y1="52" x2="26" y2="58" stroke="#C8860A" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+      <line x1="32" y1="52" x2="38" y2="58" stroke="#C8860A" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    </svg>
+
+    <div class="hero-text">
+      <h1>Wisk <em>Converter</em></h1>
+      <div class="tagline">Chiang Mai Edition &nbsp;·&nbsp; Product Mix Tool</div>
+    </div>
+
+    <div class="hero-badge">
+      <div class="thai-text">เชียงใหม่</div>
+      <div class="eng-text">Chiang Mai</div>
+    </div>
+  </div>
+  <div class="temple-border"></div>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <!-- UPLOAD -->
+  <div class="upload-zone" id="dropZone">
+    <input type="file" id="fileInput" accept=".xlsx,.xls,.xlsm,.csv"/>
+    <svg class="upload-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="10" width="40" height="32" rx="5" fill="#FDF3DC" stroke="#C8860A" stroke-width="1.5"/>
+      <path d="M16 26 L26 16 L36 26" stroke="#C8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="26" y1="16" x2="26" y2="34" stroke="#C8860A" stroke-width="2" stroke-linecap="round"/>
+      <line x1="18" y1="37" x2="34" y2="37" stroke="#C2A97B" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div class="upload-title">Select your Product Mix file</div>
+    <div class="upload-hint">Drag & drop or click · xlsx · xls · xlsm · csv</div>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-bar" id="statusBar">
+    <span class="status-icon" id="statusIcon"></span>
+    <span id="statusMsg"></span>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-tile">
+      <div class="stat-label">Items Converted</div>
+      <div class="stat-value" id="sItems">—</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Total Qty Sold</div>
+      <div class="stat-value" id="sQty">—</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Total Net Sales</div>
+      <div class="stat-value" id="sSales">—</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-label">Avg Net Sales</div>
+      <div class="stat-value" id="sAvg">—</div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results-panel" id="resultsPanel">
+    <div class="toolbar">
+      <div class="section-title">Converted_ProductMix</div>
+      <div class="toolbar-right">
+        <div class="search-box">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <circle cx="6.5" cy="6.5" r="5" stroke="#4A3728" stroke-width="1.5"/>
+            <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#4A3728" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input id="searchInput" type="text" placeholder="Search items…"/>
+        </div>
+        <button class="btn btn-outline" id="resetBtn">↺ Reset</button>
+        <button class="btn btn-saffron" id="downloadBtn">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2 L8 11 M5 8 L8 11 L11 8" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 13 L14 13" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Download Excel
+        </button>
+      </div>
+    </div>
+
+    <div class="table-frame">
+      <div class="table-scroll">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th data-col="0">Item Code</th>
+              <th data-col="1">Item Name</th>
+              <th data-col="2">Quantity Sold</th>
+              <th data-col="3">Net Sales</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Wisk Converter · Chiang Mai</div>
+  <div class="footer-file" id="footerFile">No file loaded</div>
+</footer>
+
+<script>
+(function(){
+  let allRows=[], filtered=[], sortCol=-1, sortDir=1, page=1;
+  const PAGE=50;
+
+  const dz      = document.getElementById('dropZone');
+  const fi      = document.getElementById('fileInput');
+  const sb      = document.getElementById('statusBar');
+  const si      = document.getElementById('statusIcon');
+  const sm      = document.getElementById('statusMsg');
+  const sg      = document.getElementById('statsGrid');
+  const rp      = document.getElementById('resultsPanel');
+  const tb      = document.getElementById('tableBody');
+  const pg      = document.getElementById('pagination');
+  const srch    = document.getElementById('searchInput');
+  const ff      = document.getElementById('footerFile');
+
+  dz.addEventListener('dragover', e=>{ e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', ()=>dz.classList.remove('drag-over'));
+  dz.addEventListener('drop', e=>{ e.preventDefault(); dz.classList.remove('drag-over'); if(e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); });
+  fi.addEventListener('change', e=>{ if(e.target.files[0]) processFile(e.target.files[0]); });
+
+  function setStatus(msg, type, icon){
+    sb.className='status-bar show '+type;
+    sm.textContent=msg; si.textContent=icon;
+  }
+
+  function norm(v){ return String(v??'').toLowerCase().trim().replace(/\s+/g,' '); }
+
+  function findHeader(rows){
+    const need=['type','item code','item','qty sold','net sales'];
+    for(let r=0;r<Math.min(25,rows.length);r++){
+      const n=rows[r].map(norm);
+      if(need.every(h=>n.includes(h))) return r;
+    }
+    return -1;
+  }
+
+  function processFile(file){
+    setStatus('Reading "'+file.name+'"…','info','⧖');
+    ff.textContent=file.name;
+    const reader=new FileReader();
+    reader.onload=e=>{
+      try{
+        const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});
+        const raw=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:''});
+        const hi=findHeader(raw);
+        if(hi===-1){ setStatus('Headers not found. Need: Type, Item Code, Item, Qty sold, Net Sales','error','✕'); return; }
+        const hrow=raw[hi].map(norm);
+        const cT=hrow.indexOf('type'), cI=hrow.indexOf('item code'), cN=hrow.indexOf('item'), cQ=hrow.indexOf('qty sold'), cS=hrow.indexOf('net sales');
+        if([cT,cI,cN,cQ,cS].includes(-1)){ setStatus('One or more required columns are missing.','error','✕'); return; }
+        const out=[];
+        for(let i=hi+1;i<raw.length;i++){
+          const row=raw[i];
+          if(norm(row[cT])!=='item') continue;
+          if(!String(row[cN]??'').trim()) continue;
+          out.push({code:row[cI], name:String(row[cN]).trim(), qty:row[cQ], sales:row[cS]});
+        }
+        if(!out.length){ setStatus('No rows with Type = "item" found.','error','✕'); return; }
+        allRows=out; filtered=[...out]; page=1; sortCol=-1;
+        document.querySelectorAll('th').forEach(t=>t.classList.remove('sort-asc','sort-desc'));
+        updateStats(); renderTable();
+        sg.classList.add('show'); rp.classList.add('show');
+        setStatus('Converted '+out.length+' item rows from "'+file.name+'" (header on row '+(hi+1)+')','success','✓');
+      }catch(err){ setStatus('Error: '+err.message,'error','✕'); }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  function fmtNum(v,dec){ const n=parseFloat(v); return isNaN(n)?v:n.toLocaleString('en',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+
+  function updateStats(){
+    const n=allRows.length;
+    const q=allRows.reduce((s,r)=>s+(parseFloat(r.qty)||0),0);
+    const sl=allRows.reduce((s,r)=>s+(parseFloat(r.sales)||0),0);
+    document.getElementById('sItems').textContent=n.toLocaleString();
+    document.getElementById('sQty').textContent=fmtNum(q,2);
+    document.getElementById('sSales').textContent='฿'+fmtNum(sl,2);
+    document.getElementById('sAvg').textContent=n?'฿'+fmtNum(sl/n,2):'—';
+  }
+
+  srch.addEventListener('input',()=>{
+    const q=srch.value.toLowerCase().trim();
+    filtered=q?allRows.filter(r=>String(r.code).toLowerCase().includes(q)||r.name.toLowerCase().includes(q)):[...allRows];
+    page=1; renderTable();
+  });
+
+  document.querySelectorAll('th[data-col]').forEach(th=>{
+    th.addEventListener('click',()=>{
+      const c=parseInt(th.dataset.col);
+      if(sortCol===c) sortDir*=-1; else{ sortCol=c; sortDir=1; }
+      document.querySelectorAll('th').forEach(t=>t.classList.remove('sort-asc','sort-desc'));
+      th.classList.add(sortDir===1?'sort-asc':'sort-desc');
+      const keys=['code','name','qty','sales'];
+      filtered.sort((a,b)=>{
+        const va=a[keys[c]],vb=b[keys[c]];
+        const na=parseFloat(va),nb=parseFloat(vb);
+        if(!isNaN(na)&&!isNaN(nb)) return(na-nb)*sortDir;
+        return String(va).localeCompare(String(vb))*sortDir;
+      });
+      page=1; renderTable();
+    });
+  });
+
+  function esc(v){ return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function renderTable(){
+    const start=(page-1)*PAGE;
+    const slice=filtered.slice(start,start+PAGE);
+    if(!slice.length){ tb.innerHTML='<tr><td colspan="4" class="no-rows">No matching items found.</td></tr>'; }
+    else{
+      tb.innerHTML=slice.map(r=>`<tr>
+        <td class="code">${esc(r.code)}</td>
+        <td>${esc(r.name)}</td>
+        <td class="num">${fmtNum(r.qty,2)}</td>
+        <td class="num">${fmtNum(r.sales,2)}</td>
+      </tr>`).join('');
+    }
+    renderPagination();
+  }
+
+  function renderPagination(){
+    const total=Math.ceil(filtered.length/PAGE);
+    if(total<=1&&filtered.length<=PAGE){ pg.innerHTML=''; return; }
+    let h=`<span class="pg-info">${filtered.length} rows</span>`;
+    h+=`<button class="page-btn" ${page===1?'disabled':''} onclick="gp(${page-1})">‹</button>`;
+    pageRange(page,total).forEach(p=>{
+      if(p==='…') h+=`<span class="page-sep">…</span>`;
+      else h+=`<button class="page-btn ${p===page?'active':''}" onclick="gp(${p})">${p}</button>`;
+    });
+    h+=`<button class="page-btn" ${page===total?'disabled':''} onclick="gp(${page+1})">›</button>`;
+    pg.innerHTML=h;
+  }
+
+  function pageRange(cur,total){
+    if(total<=7) return Array.from({length:total},(_,i)=>i+1);
+    if(cur<=4) return[1,2,3,4,5,'…',total];
+    if(cur>=total-3) return[1,'…',total-4,total-3,total-2,total-1,total];
+    return[1,'…',cur-1,cur,cur+1,'…',total];
+  }
+  window.gp=p=>{ page=p; renderTable(); };
+
+  document.getElementById('resetBtn').addEventListener('click',()=>{
+    allRows=[];filtered=[];
+    sg.classList.remove('show'); rp.classList.remove('show'); sb.classList.remove('show');
+    tb.innerHTML=''; srch.value=''; ff.textContent='No file loaded'; fi.value='';
+  });
+
+  document.getElementById('downloadBtn').addEventListener('click',()=>{
+    if(!allRows.length) return;
+    const data=[['Item Code','Item Name','Quantity Sold','Net Sales'],
+      ...allRows.map(r=>[r.code,r.name,parseFloat(r.qty)||r.qty,parseFloat(r.sales)||r.sales])];
+    const ws=XLSX.utils.aoa_to_sheet(data);
+    ws['!cols']=[{wch:16},{wch:42},{wch:16},{wch:16}];
+    const range=XLSX.utils.decode_range(ws['!ref']);
+    for(let R=1;R<=range.e.r;R++){
+      const qa=XLSX.utils.encode_cell({r:R,c:2});
+      const sa=XLSX.utils.encode_cell({r:R,c:3});
+      if(ws[qa]) ws[qa].z='0.00';
+      if(ws[sa]) ws[sa].z='#,##0.00';
+    }
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws,'Converted_ProductMix');
+    XLSX.writeFile(wb,'Converted_ProductMix.xlsx');
+  });
+})();
+</script>
+</body>
+</html>
