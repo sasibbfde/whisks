@@ -557,7 +557,7 @@ footer {
         <table id="dataTable">
           <thead>
             <tr>
-              <th data-col="0">Item Code</th>
+              <th data-col="0">POS Code</th>
               <th data-col="1">Item Name</th>
               <th data-col="2">Quantity Sold</th>
               <th data-col="3">Net Sales</th>
@@ -608,7 +608,7 @@ footer {
   function norm(v){ return String(v??'').toLowerCase().trim().replace(/\s+/g,' '); }
 
   function findHeader(rows){
-    const need=['type','item code','item','qty sold','net sales'];
+    const need=['type','POS code','item','qty sold','net sales'];
     for(let r=0;r<Math.min(25,rows.length);r++){
       const n=rows[r].map(norm);
       if(need.every(h=>n.includes(h))) return r;
@@ -625,9 +625,9 @@ footer {
         const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});
         const raw=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:''});
         const hi=findHeader(raw);
-        if(hi===-1){ setStatus('Headers not found. Need: Type, Item Code, Item, Qty sold, Net Sales','error','✕'); return; }
-        const hrow=raw[hi].map(norm);
-        const cT=hrow.indexOf('type'), cI=hrow.indexOf('item code'), cN=hrow.indexOf('item'), cQ=hrow.indexOf('qty sold'), cS=hrow.indexOf('net sales');
+        if(hi===-1){ setStatus('Headers not found. Need: Type, POS Code, Item, Qty sold, Net Sales','error','✕'); return; }
+        const hrow=raw[hi].map(norm);    
+        const cT=hrow.indexOf('type'), cI=hrow.indexOf('POS code'), cN=hrow.indexOf('item'), cQ=hrow.indexOf('qty sold'), cS=hrow.indexOf('net sales');
         if([cT,cI,cN,cQ,cS].includes(-1)){ setStatus('One or more required columns are missing.','error','✕'); return; }
         const out=[];
         for(let i=hi+1;i<raw.length;i++){
@@ -728,7 +728,7 @@ footer {
 
   document.getElementById('downloadBtn').addEventListener('click',()=>{
     if(!allRows.length) return;
-    const data=[['Item Code','Item Name','Quantity Sold','Net Sales'],
+    const data=[['POS Code','Item Name','Quantity Sold','Net Sales'],
       ...allRows.map(r=>[r.code,r.name,parseFloat(r.qty)||r.qty,parseFloat(r.sales)||r.sales])];
     const ws=XLSX.utils.aoa_to_sheet(data);
     ws['!cols']=[{wch:16},{wch:42},{wch:16},{wch:16}];
