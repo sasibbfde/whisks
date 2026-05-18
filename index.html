@@ -41,82 +41,28 @@ body {
 }
 
 /* ── HERO HEADER ── */
-.hero {
-  background: var(--night);
-  position: relative;
-  overflow: hidden;
-  padding: 0;
-}
-
+.hero { background: var(--night); position: relative; overflow: hidden; padding: 0; }
 .hero-pattern {
-  position: absolute; inset: 0;
-  opacity: 0.07;
+  position: absolute; inset: 0; opacity: 0.07;
   background-image:
     repeating-linear-gradient(60deg, var(--saffron-lt) 0, var(--saffron-lt) 1px, transparent 0, transparent 50%),
     repeating-linear-gradient(-60deg, var(--saffron-lt) 0, var(--saffron-lt) 1px, transparent 0, transparent 50%);
   background-size: 40px 70px;
 }
-
-.hero-inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
-  padding: 2.8rem 3.5rem;
-}
-
-.lotus-mark {
-  flex-shrink: 0;
-  width: 64px; height: 64px;
-}
-
+.hero-inner { position: relative; display: flex; align-items: center; gap: 2.5rem; padding: 2.8rem 3.5rem; }
+.lotus-mark { flex-shrink: 0; width: 64px; height: 64px; }
 .hero-text h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: var(--saffron-lt);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+  font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700;
+  color: var(--saffron-lt); line-height: 1.05; letter-spacing: -0.01em;
 }
-
-.hero-text h1 em {
-  font-style: italic;
-  color: #ffffff;
-  font-weight: 400;
-}
-
+.hero-text h1 em { font-style: italic; color: #ffffff; font-weight: 400; }
 .hero-text .tagline {
-  margin-top: 0.5rem;
-  font-size: 0.78rem;
-  color: var(--sand);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-weight: 300;
+  margin-top: 0.5rem; font-size: 0.78rem; color: var(--sand);
+  letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300;
 }
-
-.hero-badge {
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.25rem;
-}
-
-.hero-badge .thai-text {
-  font-size: 1.5rem;
-  color: var(--saffron-lt);
-  opacity: 0.6;
-  letter-spacing: 0.05em;
-}
-
-.hero-badge .eng-text {
-  font-size: 0.65rem;
-  color: var(--mist);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-/* temple border accent */
+.hero-badge { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; }
+.hero-badge .thai-text { font-size: 1.5rem; color: var(--saffron-lt); opacity: 0.6; letter-spacing: 0.05em; }
+.hero-badge .eng-text { font-size: 0.65rem; color: var(--mist); letter-spacing: 0.18em; text-transform: uppercase; }
 .temple-border {
   height: 5px;
   background: linear-gradient(90deg, var(--temple) 0%, var(--saffron) 40%, var(--saffron-lt) 60%, var(--temple) 100%);
@@ -124,76 +70,38 @@ body {
 
 /* ── MAIN ── */
 main {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 2.5rem 3.5rem 4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  max-width: 1180px; margin: 0 auto; padding: 2.5rem 3.5rem 4rem;
+  display: flex; flex-direction: column; gap: 2rem;
 }
 
 /* ── UPLOAD ZONE ── */
 .upload-zone {
-  position: relative;
-  border: 1.5px dashed var(--sand);
-  border-radius: 16px;
-  padding: 3.8rem 2rem;
-  text-align: center;
-  cursor: pointer;
-  background: #fff;
-  transition: border-color 0.25s, background 0.25s;
-  overflow: hidden;
+  position: relative; border: 1.5px dashed var(--sand); border-radius: 16px;
+  padding: 3.8rem 2rem; text-align: center; cursor: pointer; background: #fff;
+  transition: border-color 0.25s, background 0.25s; overflow: hidden;
 }
-
 .upload-zone::before {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0;
   background:
     radial-gradient(circle at 15% 50%, rgba(200,134,10,0.06) 0%, transparent 55%),
     radial-gradient(circle at 85% 50%, rgba(139,58,47,0.06) 0%, transparent 55%);
   pointer-events: none;
 }
-
-.upload-zone input[type="file"] {
-  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-}
-
-.upload-zone:hover, .upload-zone.drag-over {
-  border-color: var(--saffron);
-  background: var(--saffron-pale);
-}
-
-.upload-icon {
-  margin: 0 auto 1.2rem;
-  width: 52px; height: 52px;
-}
-
+.upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-zone:hover, .upload-zone.drag-over { border-color: var(--saffron); background: var(--saffron-pale); }
+.upload-icon { margin: 0 auto 1.2rem; width: 52px; height: 52px; }
 .upload-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.35rem;
-  font-weight: 400;
-  color: var(--dusk);
-  margin-bottom: 0.45rem;
+  font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 400;
+  color: var(--dusk); margin-bottom: 0.45rem;
 }
-
 .upload-hint {
-  font-size: 0.72rem;
-  color: var(--mist);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
+  font-size: 0.72rem; color: var(--mist); text-transform: uppercase; letter-spacing: 0.14em;
 }
 
 /* ── STATUS BAR ── */
 .status-bar {
-  display: none;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 0.9rem 1.3rem;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  font-weight: 400;
-  border-left: 4px solid;
-  background: #fff;
+  display: none; align-items: center; gap: 0.9rem; padding: 0.9rem 1.3rem;
+  border-radius: 10px; font-size: 0.8rem; font-weight: 400; border-left: 4px solid; background: #fff;
 }
 .status-bar.show { display: flex; }
 .status-bar.success { border-color: var(--jade); color: var(--jade); background: var(--jade-pale); }
@@ -202,166 +110,81 @@ main {
 .status-icon { font-size: 1.1rem; }
 
 /* ── STATS GRID ── */
-.stats-grid {
-  display: none;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
+.stats-grid { display: none; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 .stats-grid.show { display: grid; }
 
 .stat-tile {
-  background: var(--night);
-  border-radius: 14px;
-  padding: 1.3rem 1.5rem;
-  position: relative;
-  overflow: hidden;
+  background: var(--night); border-radius: 14px; padding: 1.3rem 1.5rem;
+  position: relative; overflow: hidden;
 }
-
 .stat-tile::after {
-  content: '';
-  position: absolute;
-  bottom: 0; right: 0;
+  content: ''; position: absolute; bottom: 0; right: 0;
   width: 60px; height: 60px;
   background: radial-gradient(circle, rgba(200,134,10,0.18) 0%, transparent 70%);
 }
-
 .stat-label {
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--sand);
-  margin-bottom: 0.6rem;
-  font-weight: 400;
+  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--sand); margin-bottom: 0.6rem; font-weight: 400;
 }
-
 .stat-value {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: var(--saffron-lt);
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700;
+  color: var(--saffron-lt); line-height: 1; letter-spacing: -0.02em;
 }
 
 /* ── RESULTS PANEL ── */
-.results-panel {
-  display: none;
-  flex-direction: column;
-  gap: 1.2rem;
-}
+.results-panel { display: none; flex-direction: column; gap: 1.2rem; }
 .results-panel.show { display: flex; }
 
 /* ── TOOLBAR ── */
-.toolbar {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
+.toolbar { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--bark);
+  font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 400;
+  font-style: italic; color: var(--bark);
 }
-
-.toolbar-right {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
+.toolbar-right { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; }
 
 .search-box {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0 0.9rem;
-  gap: 0.5rem;
-  height: 36px;
-  transition: border-color 0.2s;
+  display: flex; align-items: center; background: #fff; border: 1px solid var(--border);
+  border-radius: 8px; padding: 0 0.9rem; gap: 0.5rem; height: 36px; transition: border-color 0.2s;
 }
 .search-box:focus-within { border-color: var(--saffron); }
 .search-box svg { flex-shrink: 0; opacity: 0.4; }
 .search-box input {
-  border: none; outline: none; background: transparent;
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 0.78rem;
-  color: var(--dusk);
-  width: 180px;
+  border: none; outline: none; background: transparent; font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 0.78rem; color: var(--dusk); width: 180px;
 }
 .search-box input::placeholder { color: var(--mist); }
 
 .btn {
   display: inline-flex; align-items: center; gap: 0.4rem;
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0 1.1rem;
-  height: 36px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.15s, transform 0.1s;
-  white-space: nowrap;
+  font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 0.72rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; padding: 0 1.1rem; height: 36px;
+  border-radius: 8px; border: none; cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s; white-space: nowrap;
 }
 .btn:active { transform: scale(0.97); }
-
-.btn-saffron {
-  background: var(--saffron);
-  color: #fff;
-}
+.btn-saffron { background: var(--saffron); color: #fff; }
 .btn-saffron:hover { opacity: 0.88; }
-
-.btn-outline {
-  background: transparent;
-  color: var(--smoke);
-  border: 1px solid var(--border);
-}
+.btn-outline { background: transparent; color: var(--smoke); border: 1px solid var(--border); }
 .btn-outline:hover { border-color: var(--saffron); color: var(--saffron); }
 
 /* ── TABLE ── */
-.table-frame {
-  background: #fff;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
-
+.table-frame { background: #fff; border-radius: 14px; border: 1px solid var(--border); overflow: hidden; }
 .table-scroll { overflow-x: auto; }
-
 table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-
-thead {
-  background: var(--night);
-}
+thead { background: var(--night); }
 
 th {
-  padding: 0.9rem 1.2rem;
-  text-align: left;
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--sand);
-  font-weight: 400;
-  cursor: pointer;
-  user-select: none;
-  white-space: nowrap;
-  transition: color 0.15s;
+  padding: 0.9rem 1.2rem; text-align: left; font-size: 0.62rem;
+  text-transform: uppercase; letter-spacing: 0.16em; color: var(--sand);
+  font-weight: 400; cursor: pointer; user-select: none; white-space: nowrap; transition: color 0.15s;
 }
 th:hover { color: var(--saffron-lt); }
 th.sort-asc::after  { content: ' ▲'; color: var(--saffron-lt); }
 th.sort-desc::after { content: ' ▼'; color: var(--saffron-lt); }
 
 td {
-  padding: 0.72rem 1.2rem;
-  border-bottom: 1px solid rgba(194,169,123,0.15);
+  padding: 0.72rem 1.2rem; border-bottom: 1px solid rgba(194,169,123,0.15);
   color: var(--dusk);
 }
 tr:last-child td { border-bottom: none; }
@@ -369,53 +192,23 @@ tr:nth-child(odd)  td { background: var(--row-a); }
 tr:nth-child(even) td { background: var(--row-b); }
 tr:hover td { background: var(--saffron-pale) !important; }
 
-td.code {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem;
-  color: var(--smoke);
-}
-td.num {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  color: var(--jade);
-  font-weight: 500;
-}
+td.code { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--smoke); }
+td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--jade); font-weight: 500; }
 
-.no-rows {
-  text-align: center;
-  padding: 3.5rem;
-  color: var(--mist);
-  font-size: 0.82rem;
-}
+.no-rows { text-align: center; padding: 3.5rem; color: var(--mist); font-size: 0.82rem; }
 
 /* ── PAGINATION ── */
 .pagination {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.4rem;
-  padding: 0.9rem 1rem 0.7rem;
-  border-top: 1px solid rgba(194,169,123,0.2);
-  flex-wrap: wrap;
+  display: flex; align-items: center; justify-content: flex-end; gap: 0.4rem;
+  padding: 0.9rem 1rem 0.7rem; border-top: 1px solid rgba(194,169,123,0.2); flex-wrap: wrap;
 }
-
-.pg-info {
-  font-size: 0.7rem;
-  color: var(--mist);
-  margin-right: auto;
-}
+.pg-info { font-size: 0.7rem; color: var(--mist); margin-right: auto; }
 
 .page-btn {
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 0.72rem;
-  width: 30px; height: 30px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--smoke);
-  cursor: pointer;
-  transition: all 0.15s;
+  font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 0.72rem;
+  width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; border: 1px solid var(--border); background: transparent;
+  color: var(--smoke); cursor: pointer; transition: all 0.15s;
 }
 .page-btn:hover { border-color: var(--saffron); color: var(--saffron); }
 .page-btn.active { background: var(--saffron); border-color: var(--saffron); color: #fff; }
@@ -424,26 +217,12 @@ td.num {
 
 /* ── FOOTER ── */
 footer {
-  background: var(--night);
-  border-top: 3px solid var(--saffron);
-  padding: 1.4rem 3.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  background: var(--night); border-top: 3px solid var(--saffron);
+  padding: 1.4rem 3.5rem; display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
 }
-.footer-brand {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.9rem;
-  color: var(--sand);
-  font-style: italic;
-}
-.footer-file {
-  font-size: 0.65rem;
-  color: var(--smoke);
-  letter-spacing: 0.08em;
-}
+.footer-brand { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--sand); font-style: italic; }
+.footer-file { font-size: 0.65rem; color: var(--smoke); letter-spacing: 0.08em; }
 
 @media (max-width: 720px) {
   main, footer { padding-left: 1.2rem; padding-right: 1.2rem; }
@@ -457,11 +236,9 @@ footer {
 </head>
 <body>
 
-<!-- HERO -->
 <header class="hero">
   <div class="hero-pattern"></div>
   <div class="hero-inner">
-    <!-- Lotus SVG mark -->
     <svg class="lotus-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="32" cy="44" rx="8" ry="5" fill="#C8860A" opacity="0.4"/>
       <path d="M32 42 C32 42 20 34 20 22 C20 16 26 12 32 14 C38 12 44 16 44 22 C44 34 32 42 32 42Z" fill="#F5C84A" opacity="0.9"/>
@@ -487,10 +264,7 @@ footer {
   <div class="temple-border"></div>
 </header>
 
-<!-- MAIN -->
 <main>
-
-  <!-- UPLOAD -->
   <div class="upload-zone" id="dropZone">
     <input type="file" id="fileInput" accept=".xlsx,.xls,.xlsm,.csv"/>
     <svg class="upload-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -503,13 +277,11 @@ footer {
     <div class="upload-hint">Drag & drop or click · xlsx · xls · xlsm · csv</div>
   </div>
 
-  <!-- STATUS -->
   <div class="status-bar" id="statusBar">
     <span class="status-icon" id="statusIcon"></span>
     <span id="statusMsg"></span>
   </div>
 
-  <!-- STATS -->
   <div class="stats-grid" id="statsGrid">
     <div class="stat-tile">
       <div class="stat-label">Items Converted</div>
@@ -529,7 +301,6 @@ footer {
     </div>
   </div>
 
-  <!-- RESULTS -->
   <div class="results-panel" id="resultsPanel">
     <div class="toolbar">
       <div class="section-title">Converted_ProductMix</div>
@@ -557,7 +328,8 @@ footer {
         <table id="dataTable">
           <thead>
             <tr>
-              <th data-col="0">Item Code</th>
+              <!-- UI LABEL CHANGED: show POS Code -->
+              <th data-col="0">POS Code</th>
               <th data-col="1">Item Name</th>
               <th data-col="2">Quantity Sold</th>
               <th data-col="3">Net Sales</th>
@@ -569,10 +341,8 @@ footer {
       <div class="pagination" id="pagination"></div>
     </div>
   </div>
-
 </main>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-brand">Wisk Converter · Chiang Mai</div>
   <div class="footer-file" id="footerFile">No file loaded</div>
@@ -607,11 +377,24 @@ footer {
 
   function norm(v){ return String(v??'').toLowerCase().trim().replace(/\s+/g,' '); }
 
+  // Header detection: accepts "Item Code" or "POS Code" in the uploaded file.
   function findHeader(rows){
-    const need=['type','Item Code','item','qty sold','net sales'];
+    const REQUIRED = {
+      type:  ['type'],
+      code:  ['item code','pos code'],
+      name:  ['item'],
+      qty:   ['qty sold'],
+      sales: ['net sales'],
+    };
     for(let r=0;r<Math.min(25,rows.length);r++){
-      const n=rows[r].map(norm);
-      if(need.every(h=>n.includes(h))) return r;
+      const n = rows[r].map(norm);
+      const ok =
+        REQUIRED.type .some(x=>n.includes(x)) &&
+        REQUIRED.code .some(x=>n.includes(x)) &&
+        REQUIRED.name .some(x=>n.includes(x)) &&
+        REQUIRED.qty  .some(x=>n.includes(x)) &&
+        REQUIRED.sales.some(x=>n.includes(x));
+      if(ok) return r;
     }
     return -1;
   }
@@ -624,11 +407,27 @@ footer {
       try{
         const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});
         const raw=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:''});
+
         const hi=findHeader(raw);
-        if(hi===-1){ setStatus('Headers not found. Need: Type, Item Code, Item, Qty sold, Net Sales','error','✕'); return; }
-        const hrow=raw[hi].map(norm);    
-        const cT=hrow.indexOf('type'), cI=hrow.indexOf('Item Code'), cN=hrow.indexOf('item'), cQ=hrow.indexOf('qty sold'), cS=hrow.indexOf('net sales');
-        if([cT,cI,cN,cQ,cS].includes(-1)){ setStatus('One or more required columns are missing.','error','✕'); return; }
+        if(hi===-1){
+          setStatus('Headers not found. Need: Type, (Item Code), Item, Qty sold, Net Sales','error','✕');
+          return;
+        }
+
+        const hrow=raw[hi].map(norm);
+        const cT=hrow.indexOf('type');
+        // Read from uploaded "item code" column (your files always have it),
+        // but UI/Output will be labeled as "POS Code".
+        const cI=hrow.indexOf('item code')!==-1 ? hrow.indexOf('item code') : hrow.indexOf('pos code');
+        const cN=hrow.indexOf('item');
+        const cQ=hrow.indexOf('qty sold');
+        const cS=hrow.indexOf('net sales');
+
+        if([cT,cI,cN,cQ,cS].includes(-1)){
+          setStatus('One or more required columns are missing.','error','✕');
+          return;
+        }
+
         const out=[];
         for(let i=hi+1;i<raw.length;i++){
           const row=raw[i];
@@ -636,13 +435,20 @@ footer {
           if(!String(row[cN]??'').trim()) continue;
           out.push({code:row[cI], name:String(row[cN]).trim(), qty:row[cQ], sales:row[cS]});
         }
-        if(!out.length){ setStatus('No rows with Type = "item" found.','error','✕'); return; }
+
+        if(!out.length){
+          setStatus('No rows with Type = "item" found.','error','✕');
+          return;
+        }
+
         allRows=out; filtered=[...out]; page=1; sortCol=-1;
         document.querySelectorAll('th').forEach(t=>t.classList.remove('sort-asc','sort-desc'));
         updateStats(); renderTable();
         sg.classList.add('show'); rp.classList.add('show');
         setStatus('Converted '+out.length+' item rows from "'+file.name+'" (header on row '+(hi+1)+')','success','✓');
-      }catch(err){ setStatus('Error: '+err.message,'error','✕'); }
+      }catch(err){
+        setStatus('Error: '+err.message,'error','✕');
+      }
     };
     reader.readAsArrayBuffer(file);
   }
@@ -687,8 +493,9 @@ footer {
   function renderTable(){
     const start=(page-1)*PAGE;
     const slice=filtered.slice(start,start+PAGE);
-    if(!slice.length){ tb.innerHTML='<tr><td colspan="4" class="no-rows">No matching items found.</td></tr>'; }
-    else{
+    if(!slice.length){
+      tb.innerHTML='<tr><td colspan="4" class="no-rows">No matching items found.</td></tr>';
+    } else {
       tb.innerHTML=slice.map(r=>`<tr>
         <td class="code">${esc(r.code)}</td>
         <td>${esc(r.name)}</td>
@@ -721,17 +528,21 @@ footer {
   window.gp=p=>{ page=p; renderTable(); };
 
   document.getElementById('resetBtn').addEventListener('click',()=>{
-    allRows=[];filtered=[];
+    allRows=[]; filtered=[];
     sg.classList.remove('show'); rp.classList.remove('show'); sb.classList.remove('show');
     tb.innerHTML=''; srch.value=''; ff.textContent='No file loaded'; fi.value='';
   });
 
   document.getElementById('downloadBtn').addEventListener('click',()=>{
     if(!allRows.length) return;
-    const data=[['Item Code','Item Name','Quantity Sold','Net Sales'],
+
+    // OUTPUT EXCEL LABEL CHANGED: first column header becomes "POS Code"
+    const data=[['POS Code','Item Name','Quantity Sold','Net Sales'],
       ...allRows.map(r=>[r.code,r.name,parseFloat(r.qty)||r.qty,parseFloat(r.sales)||r.sales])];
+
     const ws=XLSX.utils.aoa_to_sheet(data);
     ws['!cols']=[{wch:16},{wch:42},{wch:16},{wch:16}];
+
     const range=XLSX.utils.decode_range(ws['!ref']);
     for(let R=1;R<=range.e.r;R++){
       const qa=XLSX.utils.encode_cell({r:R,c:2});
@@ -739,6 +550,7 @@ footer {
       if(ws[qa]) ws[qa].z='0.00';
       if(ws[sa]) ws[sa].z='#,##0.00';
     }
+
     const wb=XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb,ws,'Converted_ProductMix');
     XLSX.writeFile(wb,'Converted_ProductMix.xlsx');
